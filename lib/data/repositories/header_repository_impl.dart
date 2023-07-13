@@ -24,8 +24,8 @@ class HeaderRepositoryImpl implements HeaderRepository {
   }
 
   @override
-  String updateHeader(String id) {
-    // TODO: implement updateHeader
-    throw UnimplementedError();
+  String updateHeader(HeaderEntity headerEntity) {
+    return headerLocalDatasource
+        .updateHeader(HeaderModel.fromEntity(headerEntity));
   }
 }

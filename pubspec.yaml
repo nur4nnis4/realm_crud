@@ -19,6 +19,7 @@ dependencies:
   realm: ^1.0.3
   get: ^4.6.5
   intl: ^0.18.1
+  font_awesome_flutter: ^10.4.0
 
 dev_dependencies:
   flutter_test:

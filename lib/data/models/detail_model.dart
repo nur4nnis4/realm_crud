@@ -15,10 +15,14 @@ class DetailModel extends DetailEntity {
       qty: detail.qty,
       satuan: detail.satuan);
 
-  Detail toDetailScheme() => Detail(ObjectId(), namaBarang, qty, satuan);
+  Detail toDetailScheme() => Detail(
+      id.isEmpty ? ObjectId() : ObjectId.fromHexString(id),
+      namaBarang,
+      qty,
+      satuan);
 
   factory DetailModel.fromEntity(DetailEntity detail) => DetailModel(
-      id: detail.id.toString(),
+      id: detail.id,
       namaBarang: detail.namaBarang,
       qty: detail.qty,
       satuan: detail.satuan);

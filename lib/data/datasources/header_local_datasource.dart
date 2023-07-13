@@ -7,7 +7,7 @@ import 'package:realm_crud/db/db_scheme.dart';
 abstract class HeaderLocalDatasource {
   List<HeaderModel> getAllHeader({required int page, required int limit});
   String addHeader(HeaderModel headerModel);
-  String updateHeader(String id);
+  String updateHeader(HeaderModel headerModel);
   String deleteHeader(String headerId);
 }
 
@@ -30,7 +30,7 @@ class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
   @override
   String addHeader(HeaderModel headerModel) {
     try {
-      realm.write(() => realm.add(headerModel.toHeaderScheme()));
+      realm.write(() => realm.add<Header>(headerModel.toHeaderScheme()));
     } catch (e) {
       return 'Fail';
     }
@@ -38,15 +38,22 @@ class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
   }
 
   @override
-  String updateHeader(String id) {
-    throw UnimplementedError();
+  String updateHeader(HeaderModel headerModel) {
+    try {
+      realm.write(
+          () => realm.add<Header>(headerModel.toHeaderScheme(), update: true));
+    } catch (e) {
+      return 'Fail';
+    }
+    return 'Success';
   }
 
   @override
   String deleteHeader(String headerId) {
     try {
-      final header = realm.find<Header>(ObjectId.fromHexString(headerId));
-      realm.write(() => realm.delete(header!));
+      realm.write(() => realm.deleteAll<Header>());
+      // final header = realm.find<Header>(ObjectId.fromHexString(headerId));
+      // realm.write(() => realm.delete(header!));
     } catch (e) {
       debugPrint(e.toString());
       return 'Fail';

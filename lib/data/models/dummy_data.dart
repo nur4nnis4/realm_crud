@@ -33,80 +33,80 @@ DateTime generateRandomDateTime() {
 
 final List<HeaderModel> dummyHeaderList = [
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: true,
       detailList: generateRandomDetailList(),
       catatan:
           'Random catatan hsdshdg hsdgshdg hsgdshdgs hsgdhsgdyh shdgshdgs hsdgshgd hsgdhsgds'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: true,
       detailList: generateRandomDetailList(),
       catatan: 'Random catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: false,
       detailList: generateRandomDetailList(),
       catatan: 'Random catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: true,
       detailList: generateRandomDetailList(),
       catatan: 'Random catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: true,
       detailList: generateRandomDetailList(),
       catatan: 'Random catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: true,
       detailList: generateRandomDetailList(),
       catatan: 'Random Catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: true,
       detailList: generateRandomDetailList(),
       catatan: 'Random catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: false,
       detailList: generateRandomDetailList(),
       catatan: 'Random catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: true,
       detailList: generateRandomDetailList(),
       catatan: 'Random catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: true,
       detailList: generateRandomDetailList(),
       catatan: 'Random Catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: false,
       detailList: generateRandomDetailList(),
       catatan: 'Random catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: true,
       detailList: generateRandomDetailList(),
       catatan: 'Random Catatan'),
   HeaderModel(
-      id: _random.nextInt(1000000).toString(),
+      id: '',
       tanggal: generateRandomDateTime(),
       status: false,
       detailList: generateRandomDetailList(),
@@ -114,71 +114,19 @@ final List<HeaderModel> dummyHeaderList = [
 ];
 
 final List<DetailModel> dummyDetailList = [
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Minyak Goreng',
-      qty: 242,
-      satuan: 'Kilo'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Ikan',
-      qty: 296,
-      satuan: 'Kilo'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Garam',
-      qty: 323,
-      satuan: 'Kilo'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Ikan',
-      qty: 296,
-      satuan: 'Kilo'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Cabe',
-      qty: 230,
-      satuan: 'Kilo'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Pensil',
-      qty: 230,
-      satuan: 'Buah'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Kelapa Sawit',
-      qty: 2029,
-      satuan: 'Kilo'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Udang',
-      qty: 323,
-      satuan: 'Kilo'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Daging Sapi',
-      qty: 10,
-      satuan: 'Kilo'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Telur',
-      qty: 2029,
-      satuan: 'Butir'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Gas',
-      qty: 323,
-      satuan: 'Kilo'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Susu',
-      qty: 200,
-      satuan: 'Liter'),
-  DetailModel(
-      id: _random.nextInt(1000000).toString(),
-      namaBarang: 'Tahu',
-      qty: 323,
-      satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Minyak Goreng', qty: 242, satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Ikan', qty: 296, satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Garam', qty: 323, satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Ikan', qty: 296, satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Cabe', qty: 230, satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Pensil', qty: 230, satuan: 'Buah'),
+  DetailModel(id: '', namaBarang: 'Kelapa Sawit', qty: 2029, satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Udang', qty: 323, satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Daging Sapi', qty: 10, satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Telur', qty: 2029, satuan: 'Butir'),
+  DetailModel(id: '', namaBarang: 'Gas', qty: 323, satuan: 'Kilo'),
+  DetailModel(id: '', namaBarang: 'Susu', qty: 200, satuan: 'Liter'),
+  DetailModel(id: '', namaBarang: 'Tahu', qty: 323, satuan: 'Kilo'),
 ];
 
 List<DetailModel> generateRandomDetailList() {

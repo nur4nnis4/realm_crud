@@ -22,14 +22,21 @@ class HeaderModel extends HeaderEntity {
               .map((detail) => DetailModel.fromDetailScheme(detail))
               .toList());
 
-  Header toHeaderScheme() => Header(ObjectId(), tanggal, status, catatan,
+  Header toHeaderScheme() => Header(
+      id.isEmpty ? ObjectId() : ObjectId.fromHexString(id),
+      tanggal,
+      status,
+      catatan,
       details: detailList.isEmpty
           ? []
-          : detailList
-              .map((e) => Detail(ObjectId(), e.namaBarang, e.qty, e.satuan)));
+          : detailList.map((e) => Detail(
+              e.id.isEmpty ? ObjectId() : ObjectId.fromHexString(e.id),
+              e.namaBarang,
+              e.qty,
+              e.satuan)));
 
   factory HeaderModel.fromEntity(HeaderEntity header) => HeaderModel(
-      id: header.id.toString(),
+      id: header.id,
       catatan: header.catatan,
       tanggal: header.tanggal,
       status: header.status,

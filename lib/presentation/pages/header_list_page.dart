@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:realm_crud/data/models/dummy_data.dart';
 import 'package:realm_crud/domain/entities/header_entity.dart';
 import 'package:realm_crud/presentation/controllers/header_controller.dart';
 import 'package:realm_crud/presentation/widgets/header_list_tile.dart';
@@ -33,25 +32,45 @@ class _HeaderListPageState extends State<HeaderListPage> {
         toolbarHeight: kToolbarHeight + 40,
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: headerController.addHeader(dummyHeaderList[1]),
-          child: const Text('+')),
-      body: ListView.builder(
-        itemCount: headerController.headerList.length,
-        padding: const EdgeInsets.only(top: 12),
-        shrinkWrap: true,
-        itemBuilder: (_, i) => HeaderListTile(
-          index: i,
-          onTap: () {
-            showInvoiceBottomSheet(headerController.headerList[i]);
+          onPressed: () {
+            showInvoiceBottomSheet(1);
           },
-        ),
+          child: const Text('+')),
+      body: GetX<HeaderController>(
+        init: headerController,
+        builder: (_) {
+          return ListView.builder(
+            itemCount: headerController.headerList.length,
+            padding: const EdgeInsets.only(top: 12),
+            shrinkWrap: true,
+            itemBuilder: (_, i) => HeaderListTile(
+              index: i,
+              onTap: () {
+                showInvoiceBottomSheet(i);
+              },
+            ),
+          );
+        },
       ),
     );
   }
 
-  Future<dynamic> showInvoiceBottomSheet(HeaderEntity headerEntity) {
+  Future<dynamic> showInvoiceBottomSheet(int index) {
     return Get.bottomSheet(
-      InvoiceBSheetContent(headerEntity: headerEntity),
+      InvoiceBSheetContent(index: index),
+      backgroundColor: Colors.white,
+      enableDrag: true,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+      ),
+    );
+  }
+
+  Future<dynamic> showCreateHeaderBottomSheet(int index) {
+    return Get.bottomSheet(
+      InvoiceBSheetContent(index: index),
       backgroundColor: Colors.white,
       enableDrag: true,
       isScrollControlled: true,

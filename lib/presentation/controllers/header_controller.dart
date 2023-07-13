@@ -1,18 +1,32 @@
+import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:realm_crud/domain/entities/header_entity.dart';
 import 'package:realm_crud/domain/usecases/add_header_use_case.dart';
 import 'package:realm_crud/domain/usecases/delete_header_use_case.dart';
 import 'package:realm_crud/domain/usecases/get_all_header_use_case.dart';
+import 'package:realm_crud/domain/usecases/update_header_use_case.dart';
 
 class HeaderController extends GetxController {
   final GetAllHeaderUseCase getAllHeaderUseCase;
   final AddHeaderUseCase addHeaderUseCase;
   final DeleteHeaderUseCase deleteHeaderUseCase;
+  final UpdateHeaderUseCase updateHeaderUseCase;
 
-  HeaderController(this.getAllHeaderUseCase, this.addHeaderUseCase,
-      this.deleteHeaderUseCase);
+  final catatanTFController = TextEditingController();
+  bool statusDDController = false;
 
-  final RxList<HeaderEntity> headerList = <HeaderEntity>[].obs;
+  @override
+  void onClose() {
+    catatanTFController.dispose();
+  }
+
+  HeaderController(
+      {required this.getAllHeaderUseCase,
+      required this.addHeaderUseCase,
+      required this.deleteHeaderUseCase,
+      required this.updateHeaderUseCase});
+
+  RxList<HeaderEntity> headerList = <HeaderEntity>[].obs;
 
   int _currentPage = 1;
   final int _pageSize = 20;
@@ -28,11 +42,27 @@ class HeaderController extends GetxController {
   }
 
   addHeader(HeaderEntity headerEntity) {
-    addHeaderUseCase(headerEntity: headerEntity);
+    addHeaderUseCase(newHeader: headerEntity);
+    headerList.add(headerEntity);
   }
 
   deleteHeader(String headerId) {
     deleteHeaderUseCase(headerId: headerId);
+    headerList.removeWhere((header) => header.id == headerId);
+  }
+
+  updateHeader(HeaderEntity oldHeaderEntity) {
+    final updatedHeader = HeaderEntity(
+        id: oldHeaderEntity.id,
+        catatan: catatanTFController.text,
+        tanggal: oldHeaderEntity.tanggal,
+        status: statusDDController,
+        detailList: oldHeaderEntity.detailList);
+
+    updateHeaderUseCase(updatedHeader: updatedHeader);
+    headerList[headerList.indexWhere(
+        (element) => element.id == oldHeaderEntity.id)] = updatedHeader;
+    headerList.refresh();
   }
 
   // loadMore(String keyword) async {
