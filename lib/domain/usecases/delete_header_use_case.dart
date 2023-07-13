@@ -1,4 +1,3 @@
-import 'package:realm_crud/domain/entities/header_entity.dart';
 import 'package:realm_crud/domain/repositories/header_repository.dart';
 
 class DeleteHeaderUseCase {

@@ -30,6 +30,7 @@ class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
   @override
   String addHeader(HeaderModel headerModel) {
     try {
+      // _seedDatabase();
       realm.write(() => realm.add<Header>(headerModel.toHeaderScheme()));
     } catch (e) {
       return 'Fail';
@@ -51,9 +52,9 @@ class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
   @override
   String deleteHeader(String headerId) {
     try {
-      realm.write(() => realm.deleteAll<Header>());
-      // final header = realm.find<Header>(ObjectId.fromHexString(headerId));
-      // realm.write(() => realm.delete(header!));
+      // realm.write(() => realm.deleteAll<Header>());
+      final header = realm.find<Header>(ObjectId.fromHexString(headerId));
+      realm.write(() => realm.delete(header!));
     } catch (e) {
       debugPrint(e.toString());
       return 'Fail';
@@ -61,7 +62,7 @@ class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
     return 'success';
   }
 
-  void seedDatabase() {
+  void _seedDatabase() {
     List<Header> headers =
         dummyHeaderList.map((e) => e.toHeaderScheme()).toList();
     realm.write(() => realm.addAll(headers));

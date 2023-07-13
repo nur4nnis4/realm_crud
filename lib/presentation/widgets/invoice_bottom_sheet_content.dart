@@ -113,11 +113,12 @@ class InvoiceBSheetContent extends StatelessWidget {
     headerController.catatanTFController.text =
         headerController.headerList[index].catatan;
     return Get.defaultDialog(
-        title: 'Update Header',
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
-        content: UpdateDialogContent(
-            headerController: headerController, index: index),
-        radius: 10.0);
+      title: 'Update Header',
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+      content:
+          UpdateDialogContent(headerController: headerController, index: index),
+      radius: 10.0,
+      onWillPop: headerController.resetAllFormData,
+    );
   }
 }

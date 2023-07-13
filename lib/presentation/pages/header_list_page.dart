@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:realm_crud/domain/entities/header_entity.dart';
+import 'package:realm_crud/data/models/dummy_data.dart';
 import 'package:realm_crud/presentation/controllers/header_controller.dart';
+import 'package:realm_crud/presentation/widgets/create_data_content.dart';
 import 'package:realm_crud/presentation/widgets/header_list_tile.dart';
 import 'package:realm_crud/presentation/widgets/invoice_bottom_sheet_content.dart';
 
@@ -33,9 +34,9 @@ class _HeaderListPageState extends State<HeaderListPage> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            showInvoiceBottomSheet(1);
+            showCreateHeaderBottomSheet(1);
           },
-          child: const Text('+')),
+          child: const Icon(Icons.add)),
       body: GetX<HeaderController>(
         init: headerController,
         builder: (_) {
@@ -70,7 +71,7 @@ class _HeaderListPageState extends State<HeaderListPage> {
 
   Future<dynamic> showCreateHeaderBottomSheet(int index) {
     return Get.bottomSheet(
-      InvoiceBSheetContent(index: index),
+      CreateDataContent(),
       backgroundColor: Colors.white,
       enableDrag: true,
       isScrollControlled: true,

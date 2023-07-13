@@ -4,6 +4,6 @@ class TimeFormat {
   static String simplify(DateTime date) {
     const localeLangguage = 'id_ID';
 
-    return '${DateFormat.yMMMd(localeLangguage).format(date)} ${DateFormat.Hm().format(date)}';
+    return DateFormat.yMMMd(localeLangguage).format(date);
   }
 }
