@@ -19,9 +19,8 @@ class HeaderRepositoryImpl implements HeaderRepository {
   }
 
   @override
-  String deleteHeader(String id) {
-    // TODO: implement deleteHeader
-    throw UnimplementedError();
+  String deleteHeader(String headerId) {
+    return headerLocalDatasource.deleteHeader(headerId);
   }
 
   @override

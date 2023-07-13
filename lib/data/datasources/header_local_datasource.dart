@@ -8,7 +8,7 @@ abstract class HeaderLocalDatasource {
   List<HeaderModel> getAllHeader({required int page, required int limit});
   String addHeader(HeaderModel headerModel);
   String updateHeader(String id);
-  String deleteHeader(String id);
+  String deleteHeader(String headerId);
 }
 
 class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
@@ -32,7 +32,6 @@ class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
     try {
       realm.write(() => realm.add(headerModel.toHeaderScheme()));
     } catch (e) {
-      debugPrint(e.toString());
       return 'Fail';
     }
     return 'Success';
@@ -44,7 +43,14 @@ class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
   }
 
   @override
-  String deleteHeader(String id) {
+  String deleteHeader(String headerId) {
+    try {
+      final header = realm.find<Header>(ObjectId.fromHexString(headerId));
+      realm.write(() => realm.delete(header!));
+    } catch (e) {
+      debugPrint(e.toString());
+      return 'Fail';
+    }
     return 'success';
   }
 

@@ -1,13 +1,16 @@
 import 'package:get/state_manager.dart';
 import 'package:realm_crud/domain/entities/header_entity.dart';
 import 'package:realm_crud/domain/usecases/add_header_use_case.dart';
+import 'package:realm_crud/domain/usecases/delete_header_use_case.dart';
 import 'package:realm_crud/domain/usecases/get_all_header_use_case.dart';
 
 class HeaderController extends GetxController {
   final GetAllHeaderUseCase getAllHeaderUseCase;
   final AddHeaderUseCase addHeaderUseCase;
+  final DeleteHeaderUseCase deleteHeaderUseCase;
 
-  HeaderController(this.getAllHeaderUseCase, this.addHeaderUseCase);
+  HeaderController(this.getAllHeaderUseCase, this.addHeaderUseCase,
+      this.deleteHeaderUseCase);
 
   final RxList<HeaderEntity> headerList = <HeaderEntity>[].obs;
 
@@ -27,6 +30,11 @@ class HeaderController extends GetxController {
   addHeader(HeaderEntity headerEntity) {
     addHeaderUseCase(headerEntity: headerEntity);
   }
+
+  deleteHeader(String headerId) {
+    deleteHeaderUseCase(headerId: headerId);
+  }
+
   // loadMore(String keyword) async {
   //   final totalResults = _paging.value?.totalResults ?? 0;
   //   if (totalResults / _pageSize <= _currentPage) return;

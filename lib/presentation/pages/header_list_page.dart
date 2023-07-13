@@ -40,7 +40,7 @@ class _HeaderListPageState extends State<HeaderListPage> {
         padding: const EdgeInsets.only(top: 12),
         shrinkWrap: true,
         itemBuilder: (_, i) => HeaderListTile(
-          headerId: i,
+          index: i,
           onTap: () {
             showInvoiceBottomSheet(headerController.headerList[i]);
           },
