@@ -1,16 +1,39 @@
 # realm_crud
 
-A new Flutter project.
+A simple flutter project implementing Realm local database CRUD , GetX , Paginationa and  Clean Architecture
 
-## Getting Started
+## Demo 
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+https://github.com/nur4nnis4/realm_crud/assets/108250774/214c94a5-0a0f-4623-b0f4-9fcf1697cc21
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+https://github.com/nur4nnis4/realm_crud/assets/108250774/e7fdf648-1e91-443e-bf9b-c44483e94f89
+
+
+
+https://github.com/nur4nnis4/realm_crud/assets/108250774/160b9968-ffdf-4d79-b616-8f482a582ab2
+
+
+
+
+
+https://github.com/nur4nnis4/realm_crud/assets/108250774/514a7afd-4c8f-43b3-8fce-f49eed2f5a37
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
