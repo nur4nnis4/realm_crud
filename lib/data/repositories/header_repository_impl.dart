@@ -10,22 +10,21 @@ class HeaderRepositoryImpl implements HeaderRepository {
 
   @override
   List<HeaderEntity> getAllHeader({required int page, required int limit}) =>
-      headerLocalDatasource.getAllHeader(page: page, limit: limit);
+      headerLocalDatasource.getAllHeaders(page: page, limit: limit);
 
   @override
-  String addHeader(HeaderEntity headerEntity) {
-    return headerLocalDatasource
-        .addHeader(HeaderModel.fromEntity(headerEntity));
-  }
+  List<HeaderEntity> loadMoreHeaders({required int page, required int limit}) =>
+      headerLocalDatasource.loadModerHeaders(page: page, limit: limit);
 
   @override
-  String deleteHeader(String headerId) {
-    return headerLocalDatasource.deleteHeader(headerId);
-  }
+  String addHeader(HeaderEntity headerEntity) =>
+      headerLocalDatasource.addHeader(HeaderModel.fromEntity(headerEntity));
 
   @override
-  String updateHeader(HeaderEntity headerEntity) {
-    return headerLocalDatasource
-        .updateHeader(HeaderModel.fromEntity(headerEntity));
-  }
+  String deleteHeader(String headerId) =>
+      headerLocalDatasource.deleteHeader(headerId);
+
+  @override
+  String updateHeader(HeaderEntity headerEntity) =>
+      headerLocalDatasource.updateHeader(HeaderModel.fromEntity(headerEntity));
 }

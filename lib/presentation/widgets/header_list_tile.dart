@@ -43,7 +43,8 @@ class HeaderListTile extends StatelessWidget {
           ),
           title: Text(
               TimeFormat.simplify(headerController.headerList[index].tanggal)),
-          subtitle: Text(headerController.headerList[index].catatan),
+          subtitle: Text(headerController.headerList[index].catatan,
+              maxLines: 2, overflow: TextOverflow.ellipsis),
           trailing:
               StatusBadge(status: headerController.headerList[index].status),
         ),

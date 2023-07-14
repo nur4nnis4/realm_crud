@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:realm_crud/data/models/dummy_data.dart';
 import 'package:realm_crud/presentation/controllers/header_controller.dart';
 import 'package:realm_crud/presentation/widgets/create_data_content.dart';
 import 'package:realm_crud/presentation/widgets/header_list_tile.dart';
@@ -14,45 +13,70 @@ class HeaderListPage extends StatefulWidget {
 }
 
 class _HeaderListPageState extends State<HeaderListPage> {
+  final _scrollController = ScrollController();
   HeaderController headerController = Get.find();
+
+  _scrollListener() {
+    if (_scrollController.position.maxScrollExtent ==
+        _scrollController.position.pixels) {
+      headerController.loadMoreHeaders();
+    }
+  }
 
   @override
   void initState() {
     headerController.getAllHeader();
     super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Realm CRUD',
-        ),
-        elevation: 0,
-        toolbarHeight: kToolbarHeight + 40,
-      ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showCreateHeaderBottomSheet(1);
-          },
-          child: const Icon(Icons.add)),
-      body: GetX<HeaderController>(
-        init: headerController,
-        builder: (_) {
-          return ListView.builder(
-            itemCount: headerController.headerList.length,
-            padding: const EdgeInsets.only(top: 12),
-            shrinkWrap: true,
-            itemBuilder: (_, i) => HeaderListTile(
-              index: i,
-              onTap: () {
-                showInvoiceBottomSheet(i);
-              },
+    return GetX<HeaderController>(
+      init: headerController,
+      builder: (_) {
+        return Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'Realm CRUD',
+              ),
+              elevation: 0,
+              toolbarHeight: kToolbarHeight + 40,
             ),
-          );
-        },
-      ),
+            floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  showCreateHeaderBottomSheet(1);
+                },
+                child: const Icon(Icons.add)),
+            body: ListView.builder(
+              controller: _scrollController,
+              itemCount: headerController.headerList.length + 1,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              shrinkWrap: true,
+              itemBuilder: (_, i) {
+                if (i < headerController.headerList.length) {
+                  return HeaderListTile(
+                      index: i,
+                      onTap: () {
+                        showInvoiceBottomSheet(i);
+                      });
+                } else {
+                  return headerController.isLoadMore
+                      ? const Padding(
+                          padding: EdgeInsets.only(bottom: 40),
+                          child: Center(child: CircularProgressIndicator()),
+                        )
+                      : Container();
+                }
+              },
+            ));
+      },
     );
   }
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:realm/realm.dart';
-import 'package:realm_crud/data/models/dummy_data.dart';
 import 'package:realm_crud/data/models/header_model.dart';
 import 'package:realm_crud/db/db_scheme.dart';
 
 abstract class HeaderLocalDatasource {
-  List<HeaderModel> getAllHeader({required int page, required int limit});
+  List<HeaderModel> getAllHeaders({required int page, required int limit});
+  List<HeaderModel> loadModerHeaders({required int page, required int limit});
   String addHeader(HeaderModel headerModel);
   String updateHeader(HeaderModel headerModel);
   String deleteHeader(String headerId);
@@ -17,14 +17,28 @@ class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
   HeaderLocalDatasourceImpl(this.realm);
 
   @override
-  List<HeaderModel> getAllHeader({required int page, required int limit}) {
+  List<HeaderModel> getAllHeaders({required int page, required int limit}) {
     final List<HeaderModel> result = [];
 
-    final allItems = realm.all<Header>();
+    final allItems =
+        realm.query<Header>('TRUEPREDICATE SORT(tanggal DESC) Limit($limit)');
     result
         .addAll(allItems.map((header) => HeaderModel.fromHeaderScheme(header)));
 
     return result;
+  }
+
+  @override
+  List<HeaderModel> loadModerHeaders({required int page, required int limit}) {
+    final List<HeaderModel> result = [];
+
+    final allItems = realm.query<Header>(
+        'TRUEPREDICATE SORT(tanggal DESC) Limit(${limit * page})');
+
+    result
+        .addAll(allItems.map((header) => HeaderModel.fromHeaderScheme(header)));
+
+    return result.sublist((page - 1) * limit);
   }
 
   @override
@@ -62,9 +76,9 @@ class HeaderLocalDatasourceImpl implements HeaderLocalDatasource {
     return 'success';
   }
 
-  void _seedDatabase() {
-    List<Header> headers =
-        dummyHeaderList.map((e) => e.toHeaderScheme()).toList();
-    realm.write(() => realm.addAll(headers));
-  }
+  // void _seedDatabase() {
+  //   List<Header> headers =
+  //       dummyHeaderList.map((e) => e.toHeaderScheme()).toList();
+  //   realm.write(() => realm.addAll(headers));
+  // }
 }

@@ -4,6 +4,7 @@ import 'package:realm_crud/domain/entities/detail_entity.dart';
 import 'package:realm_crud/domain/entities/header_entity.dart';
 import 'package:realm_crud/domain/usecases/add_header_use_case.dart';
 import 'package:realm_crud/domain/usecases/delete_header_use_case.dart';
+import 'package:realm_crud/domain/usecases/load_more_headers_use_case.dart';
 import 'package:realm_crud/domain/usecases/get_all_header_use_case.dart';
 import 'package:realm_crud/domain/usecases/update_header_use_case.dart';
 
@@ -12,6 +13,7 @@ class HeaderController extends GetxController {
   final AddHeaderUseCase addHeaderUseCase;
   final DeleteHeaderUseCase deleteHeaderUseCase;
   final UpdateHeaderUseCase updateHeaderUseCase;
+  final LoadMoreHeadersUseCase loadMoreHeadersUseCase;
 
   final addHeaderformKey = GlobalKey<FormState>();
 
@@ -20,20 +22,21 @@ class HeaderController extends GetxController {
 
   bool statusDDController = false;
 
-  HeaderController(
-      {required this.getAllHeaderUseCase,
-      required this.addHeaderUseCase,
-      required this.deleteHeaderUseCase,
-      required this.updateHeaderUseCase});
+  HeaderController({
+    required this.getAllHeaderUseCase,
+    required this.addHeaderUseCase,
+    required this.deleteHeaderUseCase,
+    required this.updateHeaderUseCase,
+    required this.loadMoreHeadersUseCase,
+  });
 
   RxList<HeaderEntity> headerList = <HeaderEntity>[].obs;
 
   RxInt detailFormListLength = 1.obs;
   List<DetailEntity> newDetailList = [];
   int _currentPage = 1;
-  final int _pageSize = 20;
-  // var _isLoadMore = false;
-  // var _paging = Rx<Paging?>(null);
+  final int _limit = 10;
+  var isLoadMore = true;
 
   @override
   void onClose() {
@@ -76,21 +79,12 @@ class HeaderController extends GetxController {
   void getAllHeader() {
     _currentPage = 1;
     final paginatedHeaderList =
-        getAllHeaderUseCase(page: _currentPage, limit: _pageSize);
-
+        getAllHeaderUseCase(page: _currentPage, limit: _limit);
     headerList.assignAll(paginatedHeaderList);
   }
 
   addHeader() {
     addHeaderformKey.currentState?.save();
-
-    // print(newDetailList.length);
-    // print(newDetailList.first.id);
-    // print(newDetailList.first.namaBarang);
-    // print(newDetailList.first.qty);
-    // print(newDetailList.first.satuan);
-
-    print(tanggalTFController.text);
 
     final newHeader = HeaderEntity(
         id: '',
@@ -99,7 +93,7 @@ class HeaderController extends GetxController {
         status: statusDDController,
         detailList: newDetailList);
     addHeaderUseCase(newHeader: newHeader);
-    headerList.add(newHeader);
+    headerList.insert(0, newHeader);
   }
 
   deleteHeader(String headerId) {
@@ -122,16 +116,13 @@ class HeaderController extends GetxController {
     catatanTFController.clear();
   }
 
-  // loadMore(String keyword) async {
-  //   final totalResults = _paging.value?.totalResults ?? 0;
-  //   if (totalResults / _pageSize <= _currentPage) return;
-  //   if (_isLoadMore) return;
-  //   _isLoadMore = true;
-  //   _currentPage += 1;
-  //   final newPaging = await _fetchNewlineUseCase
-  //       .execute(Tuple3(keyword, _currentPage, _pageSize));
-  //   articles.addAll(newPaging.articles);
-  //   _paging.value?.totalResults = newPaging.totalResults;
-  //   _isLoadMore = false;
-  // }
+  loadMoreHeaders() async {
+    if (isLoadMore) {
+      _currentPage++;
+      final newPaging =
+          loadMoreHeadersUseCase(page: _currentPage, limit: _limit);
+      if (_limit > newPaging.length) isLoadMore = false;
+      headerList.addAll(newPaging);
+    }
+  }
 }

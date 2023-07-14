@@ -6,6 +6,7 @@ import 'package:realm_crud/db/db_scheme.dart';
 import 'package:realm_crud/domain/repositories/header_repository.dart';
 import 'package:realm_crud/domain/usecases/add_header_use_case.dart';
 import 'package:realm_crud/domain/usecases/delete_header_use_case.dart';
+import 'package:realm_crud/domain/usecases/load_more_headers_use_case.dart';
 import 'package:realm_crud/domain/usecases/get_all_header_use_case.dart';
 import 'package:realm_crud/domain/usecases/update_header_use_case.dart';
 import 'package:realm_crud/presentation/controllers/header_controller.dart';
@@ -18,13 +19,15 @@ class HeaderBinding extends Bindings {
           getAllHeaderUseCase: Get.find<GetAllHeaderUseCase>(),
           addHeaderUseCase: Get.find<AddHeaderUseCase>(),
           deleteHeaderUseCase: Get.find<DeleteHeaderUseCase>(),
-          updateHeaderUseCase: Get.find<UpdateHeaderUseCase>()),
+          updateHeaderUseCase: Get.find<UpdateHeaderUseCase>(),
+          loadMoreHeadersUseCase: Get.find<LoadMoreHeadersUseCase>()),
     );
 
     Get.lazyPut(() => GetAllHeaderUseCase(Get.find<HeaderRepository>()));
     Get.lazyPut(() => AddHeaderUseCase(Get.find<HeaderRepository>()));
     Get.lazyPut(() => DeleteHeaderUseCase(Get.find<HeaderRepository>()));
     Get.lazyPut(() => UpdateHeaderUseCase(Get.find<HeaderRepository>()));
+    Get.lazyPut(() => LoadMoreHeadersUseCase(Get.find<HeaderRepository>()));
 
     Get.lazyPut<HeaderRepository>(
         () => HeaderRepositoryImpl(Get.find<HeaderLocalDatasource>()));
