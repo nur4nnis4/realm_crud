@@ -64,8 +64,8 @@ class HeaderController extends GetxController {
           qty: qty != null ? int.parse(qty) : detail.qty,
           satuan: satuan ?? detail.satuan);
     } else {
-      newDetailList
-          .add(DetailEntity(id: '', namaBarang: '', qty: 0, satuan: ''));
+      newDetailList.add(DetailEntity(
+          id: '', namaBarang: namaBarang ?? '', qty: 0, satuan: satuan ?? ''));
     }
   }
 
